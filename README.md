@@ -27,9 +27,3 @@ We welcome contributions from the Go community! Please follow these guidelines:
 5. Submit a pull request with a clear description
 
 All contributions are reviewed for quality, relevance, and adherence to Go best practices before being published to the website.
-
-## License
-
-This project is open source and available under the [MIT License](LICENSE). 
-
-By contributing to this repository, you agree that your contributions will be licensed under the same MIT License.
