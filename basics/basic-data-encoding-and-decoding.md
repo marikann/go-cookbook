@@ -145,6 +145,5 @@ func main() {
 
 ## Performance Tips
 
-- Avoid unnecessary encoding and decoding operations; consider caching results if data doesn't change.
 - For large JSON datasets, consider using `json.Decoder` for streaming instead of processing everything in-memory with `json.Marshal` and `json.Unmarshal`.
 - Profile and benchmark different encoding strategies if encoding/decoding is a bottleneck in your application.

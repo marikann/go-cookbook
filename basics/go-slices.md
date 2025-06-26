@@ -98,7 +98,6 @@ func main() {
 
 ## Best Practices
 
-- Use `make` to create slices with a predefined capacity if the size is predictable.
 - Use `append` carefully, as it might lead to allocation of a new underlying array if the capacity is exceeded.
 
 ## Common Pitfalls

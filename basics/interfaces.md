@@ -95,7 +95,7 @@ func main() {
 
 ## Best Practices
 
-- Design interfaces to define high-level behaviors, keeping them small and focused.
+- Keep interfaces small and focused.
 - Use interface names that reflect what they do, often by using verbs like `Reader`, `Writer`, or `Formatter`.
 - Utilize type assertion only when necessary, and handle cases where it might fail gracefully.
 

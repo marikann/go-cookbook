@@ -45,7 +45,6 @@ func main() {
 
 - Use `omitempty` in JSON annotations to avoid serializing empty fields whenever necessary.
 - Clearly name JSON tags to ensure consistent API naming conventions.
-- For database annotations, specify primary keys and unique constraints to maintain data integrity.
 
 ## Common Pitfalls
 
@@ -57,4 +56,3 @@ func main() {
 
 - Use `omitempty` to reduce the size of JSON data sent over networks.
 - Avoid deep marshalling/unmarshalling loops which may consume significant CPU resources. Consider flattening nested structures if possible.
-- For databases, only select necessary columns to reduce the amount of data fetched and improve query performance.

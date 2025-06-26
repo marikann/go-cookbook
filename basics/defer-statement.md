@@ -90,7 +90,6 @@ This example guarantees that `cleanup` is always called, even if `process` panic
 
 ## Best Practices
 
-- Use `defer` for resource management, like closing files or connections.
 - Chain multiple `defer` statements to manage multiple resources, ensuring they're closed in the correct order.
 
 ## Common Pitfalls

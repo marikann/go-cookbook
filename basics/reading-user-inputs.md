@@ -91,7 +91,6 @@ func main() {
 - Forgetting to handle errors, leading to potential crashes or undefined behavior.
 - Ignoring buffer flushing which could leave inputs unread in some scenarios.
 - Misusing input delimiters in `fmt.Scanln` or `bufio.Reader.ReadString`.
-- Not accounting for edge cases such as empty input or incorrect data types.
 
 ## Performance Tips
 

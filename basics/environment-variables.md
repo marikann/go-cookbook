@@ -77,7 +77,6 @@ func main() {
 ## Best Practices
 
 - Use `os.LookupEnv()` instead of `os.Getenv()` when you need to differentiate between an unset variable and an empty string.
-- Centralize configuration management in your Go application, using environment variables to inject configuration at runtime.
 - Use a consistent naming convention for environment variables and include an appropriate prefix, e.g., `APP_`, to avoid clashes.
 
 ## Common Pitfalls
