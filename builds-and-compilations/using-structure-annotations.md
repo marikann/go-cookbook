@@ -44,7 +44,7 @@ func main() {
 
 ## YAML Structure Annotations
 
-Go developers also use annotations with third-party libraries like `gopkg.in/yaml.v2` to work with YAML files:
+Go developers also use annotations with third-party libraries like `gopkg.in/yaml.v3` to work with YAML files:
 
 ```go
 package main
@@ -53,7 +53,7 @@ import (
 	"fmt"
 	"log"
 
-	"gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v3"
 )
 
 type APIConfig struct {
