@@ -76,11 +76,9 @@ func main() {
 		go worker(i, &wg, errChan)
 	}
 
-	// Close error channel once all workers finish
-	go func() {
-		wg.Wait()
-		close(errChan)
-	}()
+	
+	wg.Wait()
+	close(errChan)	
 
 	for err := range errChan {
 		if err != nil {
