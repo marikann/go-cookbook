@@ -43,6 +43,28 @@ func main() {
 }
 ```
 
+## Using `log/slog`
+
+The `log/slog` package provides structured logging with built-in level support:
+
+```go
+package main
+
+import (
+	"log/slog"
+	"os"
+)
+
+func main() {
+	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
+	
+	logger.Debug("Debug message")
+	logger.Info("Info message")
+	logger.Warn("Warning message")
+	logger.Error("Error message")
+}
+```
+
 ## High-Performance Logging with `zap`
 
 `zap` is a fast, structured logging library that provides both a low-level barebones logger and a higher-level sugared logger. Here is an example of configuring `zap`:
