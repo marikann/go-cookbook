@@ -75,39 +75,6 @@ func main() {
 }
 ```
 
-## Wrapping Errors
-
-Starting with Go 1.13, you can wrap errors to add context with `fmt.Errorf()` and the `%w` format verb, allowing error chain processing.
-
-### Example of Error Wrapping and Unwrapping
-
-```go
-package main
-
-import (
-	"errors"
-	"fmt"
-)
-
-func complicatedFunction() error {
-	return errors.New("original error")
-}
-
-func wrapperFunction() error {
-	if err := complicatedFunction(); err != nil {
-		return fmt.Errorf("wrapperFunction failed: %w", err)
-	}
-	return nil
-}
-
-func main() {
-	err := wrapperFunction()
-	if err != nil {
-		fmt.Println("Error:", err)
-	}
-}
-```
-
 ## Best Practices
 
 - **Use Meaningful Error Messages:** Provide clear and actionable error messages that help identify the failure quickly.
