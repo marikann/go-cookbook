@@ -67,7 +67,7 @@ func main() {
 
 func cleanup() {
 	fmt.Println("Performing cleanup tasks...")
-	time.Sleep(2 * time.Second) // Simulated cleanup duration
+	time.Sleep(2 * time.Second) // Simulated cleanup duration.
 	fmt.Println("Cleanup completed.")
 }
 ```

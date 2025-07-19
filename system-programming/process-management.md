@@ -120,6 +120,5 @@ func main() {
 
 - Use `exec.CommandContext` with `context.Context` to manage process timeouts efficiently.
 - Prefer communicating with external processes over pipes rather than through direct file redirection.
-- Utilize Go’s concurrency features to manage multiple processes simultaneously.
 - Only enable output capturing (buffers) when needed to save memory, especially in high-volume output scenarios.
 - Profile and monitor processes regularly when dealing with high workloads to ensure optimal performance.
