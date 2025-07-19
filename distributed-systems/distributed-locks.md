@@ -5,55 +5,11 @@ date: '2025-03-24'
 category: 'Distributed Systems'
 ---
 
-Distributed locks are crucial in distributed systems to ensure that multiple nodes don't concurrently modify shared resources. This snippet demonstrates how to implement distributed locks in Go using different techniques.
-
-## Basic Distributed Lock with Redis
-
-Redis is a popular choice for implementing distributed locks due to its speed and simplicity. Below is an example using the `go-redis` library:
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"time"
-	
-	"github.com/go-redis/redis/v8"
-)
-
-var ctx = context.Background()
-
-func main() {
-	client := redis.NewClient(&redis.Options{
-		Addr: "localhost:6379",
-	})
-
-	lockKey := "my-lock"
-	expiration := 10 * time.Second
-
-	set, err := client.SetNX(ctx, lockKey, "unique-value", expiration).Result()
-	if err != nil {
-		panic(err)
-	}
-
-	if set {
-		fmt.Println("Lock acquired!")
-		// Perform your critical section work here.
-		time.Sleep(8 * time.Second) // Simulate work
-
-		// Release the lock.
-		client.Del(ctx, lockKey)
-		fmt.Println("Lock released!")
-	} else {
-		fmt.Println("Could not acquire lock!")
-	}
-}
-```
+Distributed locks are crucial in distributed systems to ensure that multiple nodes don't concurrently modify shared resources. This snippet demonstrates how to implement distributed locks in Go.
 
 ## Distributed Lock with Etcd
 
-Etcd provides strong consistency and is another option for implementing distributed locks. Below is an implementation using the `go.etcd.io/etcd/clientv3` package:
+Etcd provides strong consistency and is a great option for implementing distributed locks. Below is an implementation using the `go.etcd.io/etcd/clientv3` package:
 
 ```go
 package main
