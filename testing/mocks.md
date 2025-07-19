@@ -87,7 +87,6 @@ func TestFetchData(t *testing.T) {
 
 ## Best Practices
 
-- **Align Expectations**: Clearly specify expectations on mocks to match the actual usage within your tests.
 - **Finish Controllers**: Ensure to call `Finish()` on every mock controller to verify all expectations have been met.
 - **Use Sub-tests**: Leverage sub-tests for different scenarios to maintain organized and readable test code.
 - **Minimal Mocks**: Mock only the necessary methods for each test to reduce complexity.

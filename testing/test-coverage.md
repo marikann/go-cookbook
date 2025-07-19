@@ -33,34 +33,6 @@ go tool cover -html=coverage.out
 
 This command opens your default web browser with a highlighted source code view, showing which statements are covered and which are not.
 
-## Example: Writing a Simple Test
-
-Here's a basic example of a test function in Go. Suppose you have the following simple Go function in `mathutil.go`:
-
-```go
-package mathutil
-
-func Add(a, b int) int {
-    return a + b
-}
-```
-
-A corresponding test file `mathutil_test.go` might look like this:
-
-```go
-package mathutil
-
-import "testing"
-
-func TestAdd(t *testing.T) {
-    result := Add(2, 3)
-    expected := 5
-    if result != expected {
-        t.Errorf("Add(2, 3) = %d; want %d", result, expected)
-    }
-}
-```
-
 ## Best Practices
 
 - **Aim for Thorough Coverage**: While 100% coverage is often unrealistic, strive for high coverage in critical and frequently modified code.

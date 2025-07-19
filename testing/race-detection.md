@@ -56,7 +56,7 @@ In this example, multiple goroutines increment the `count` variable concurrently
 
 ## Fixing Race Conditions
 
-Race conditions can often be fixed by synchronizing access to shared data using mutexes:
+Race conditions can often be fixed by synchronizing access to shared data using mutexes or other concurrent structures and primitives:
 
 ```go
 package main
