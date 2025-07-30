@@ -37,30 +37,9 @@ func main() {
 }
 ```
 
-## Using Atomic Types for Booleans
+## Supported Types
 
-Go doesn't have an atomic boolean, but you can emulate it with an `int32`:
-
-```go
-package main
-
-import (
-	"fmt"
-	"sync/atomic"
-)
-
-func main() {
-	var flag int32 = 0
-
-	// Set the flag to true.
-	atomic.StoreInt32(&flag, 1)
-
-	// Check if the flag is true.
-	if atomic.LoadInt32(&flag) == 1 {
-		fmt.Println("Processing flag is set")
-	}
-}
-```
+Atomic operations are currently supported for `int32`, `int64`, `uint32`, `uint64`, `bool` (via a dedicated `atomic.Bool` type), as well as associated pointers (excluding bool pointer).
 
 ## Compare and Swap (CAS) Operation
 
@@ -79,6 +58,44 @@ func main() {
 
 	swapped := atomic.CompareAndSwapInt32(&value, 42, 73)
 	fmt.Printf("Swapped: %v, Value: %d\n", swapped, value)
+}
+```
+
+## Using atomic.Value for Complex Types
+
+The `atomic.Value` type provides a safe way to atomically load and store values of any type. This is particularly useful when you need to atomically update complex data structures like structs, slices, or maps.
+
+```go
+package main
+
+import (
+	"fmt"
+	"sync/atomic"
+)
+
+type User struct {
+	Name string
+	Age  int
+}
+
+func main() {
+	var value atomic.Value
+	
+	// Store initial user.
+	user1 := User{Name: "Alex", Age: 37}
+	value.Store(user1)
+	
+	// Load and print.
+	current := value.Load().(User)
+	fmt.Printf("Current user: %+v\n", current)
+	
+	// Update with new user data.
+	user2 := User{Name: "Vera", Age: 36}
+	value.Store(user2)
+	
+	// Load and print updated data.
+	updated := value.Load().(User)
+	fmt.Printf("Updated user: %+v\n", updated)
 }
 ```
 
