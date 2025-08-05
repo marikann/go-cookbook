@@ -5,7 +5,7 @@ date: '2025-03-24'
 category: 'Serialization'
 ---
 
-JSON (JavaScript Object Notation) is a popular data interchange format due to its simplicity and readability. Go provides built-in support for encoding and decoding JSON using the `encoding/json` package. This guide provides examples for working with JSON in Go, suitable for both beginners and experienced engineers.
+JSON is a popular data interchange format due to its simplicity and readability. Go provides built-in support for encoding and decoding JSON using the `encoding/json` package. This guide provides examples for working with JSON in Go, suitable for both beginners and experienced engineers.
 
 ## Basic JSON Serialization
 
@@ -247,18 +247,6 @@ Before adopting JSON v2 in your projects, consider these important factors:
 4. **Default Behavior Changes**: Field matching is case-sensitive by default, unlike v1
 5. **Performance Gains**: Expect faster processing, particularly for large JSON documents
 6. **Backward Compatibility**: Most v1 code works with v2, but some edge cases may differ
-
-### Current Status and Future Plans
-
-JSON v2 represents an ongoing effort to modernize Go's JSON handling capabilities. The package is currently available through the experimental flag system, allowing developers to test and provide feedback before potential inclusion in future Go releases.
-
-Key timeline considerations:
-- Active development and refinement continues
-- Community feedback shapes the final design
-- Production usage should wait for official stabilization
-- Regular API changes require careful version management
-
-For mission-critical applications, stick with the proven `encoding/json` package until v2 achieves stable release status.
 
 ## Best Practices
 
