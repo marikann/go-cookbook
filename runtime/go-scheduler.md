@@ -9,7 +9,7 @@ Go's scheduler is a key component that enables efficient execution and managemen
 
 ## Basics of Go Scheduler
 
-The Go scheduler is designed to efficiently manage goroutines by balancing their execution across available CPU cores. It uses a model known as GOMAXPROCS to determine the maximum number of operating system threads that can execute Go code simultaneously.
+Go’s runtime uses an M:N scheduling model (M goroutines on N OS threads) GOMAXPROCS controlling the number of threads that run Go code in parallel.
 
 ### Example: Setting GOMAXPROCS
 
@@ -81,13 +81,13 @@ The Go scheduler uses a work-stealing algorithm to balance load across multiple 
 
 ## Best Practices
 
-- Set `GOMAXPROCS` according to your application's concurrency requirements and the number of logical CPU cores available.
+- Set `GOMAXPROCS` according to your application's concurrency requirements and the number of logical CPU cores available (`runtime.NumCPU()`).
 - Use synchronization primitives like channels and `sync.WaitGroup` to manage goroutine lifecycles efficiently.
 - Avoid relying on goroutine scheduling order for program correctness—it can vary between runs.
 
 ## Common Pitfalls
 
-- Overloading the scheduler with excessive goroutines without synchronization, causing resource contention.
+- Overloading the scheduler with excessive goroutines (e.g. thousands, tens of thousands) without synchronization, causing resource contention.
 - Assuming that goroutines will always run in the order they are created.
 - Forgetting to decrease wait groups or failing to synchronize goroutines leading to deadlocks.
 
