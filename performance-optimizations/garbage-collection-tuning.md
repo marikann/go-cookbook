@@ -62,6 +62,15 @@ func bToMb(b uint64) uint64 {
 }
 ```
 
+## Experimental Garbage Collector (Go 1.25+)
+
+Go 1.25 introduces a new experimental garbage collector that significantly improves performance for applications that heavily use garbage collection. The new experimental garbage collector delivers significant performance improvements, with benchmark results showing a 10-40% reduction in garbage collection overhead in real-world programs that heavily use the garbage collector. The design also provides better locality through improved memory locality when processing small objects, and enhanced scalability with better CPU scalability for garbage collection operations.
+To use the new experimental garbage collector, set the `GOEXPERIMENT` environment variable at build time:
+
+```bash
+GOEXPERIMENT=greenteagc
+```
+
 ## Best Practices
 
 - **Tune the GOGC Value**: Adjust the `GOGC` value based on your app's performance metrics and memory usage patterns.
