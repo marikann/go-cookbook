@@ -19,7 +19,7 @@ import (
 	"unique"
 )
 
-func demonstrateBasicInterning() {
+func main() {
 	// Intern string values
 	str1 := unique.Make("hello world")
 	str2 := unique.Make("hello world")
@@ -52,23 +52,23 @@ type Person struct {
 	City string
 }
 
-func demonstrateStructInterning() {
-	// Create multiple instances of the same person data
+func main() {
+	// Create multiple instances of the same person data.
 	person1 := unique.Make(Person{Name: "Alice", Age: 30, City: "New York"})
 	person2 := unique.Make(Person{Name: "Alice", Age: 30, City: "New York"})
 	person3 := unique.Make(Person{Name: "Bob", Age: 25, City: "Boston"})
 	
-	// Memory-efficient comparison
+	// Memory-efficient comparison.
 	if person1 == person2 {
 		fmt.Println("Same person data - only one copy in memory")
 	}
 	
-	// Different data results in different handles
+	// Different data results in different handles.
 	if person1 != person3 {
 		fmt.Println("Different person data")
 	}
 	
-	// Access the original struct
+	// Access the original struct.
 	fmt.Printf("Person 1: %+v\n", person1.Value())
 }
 ```
@@ -85,7 +85,7 @@ import (
 	"unique"
 )
 
-// DeduplicatedCache stores unique handles to avoid duplicate data
+// DeduplicatedCache stores unique handles to avoid duplicate data.
 type DeduplicatedCache[K comparable, V comparable] struct {
 	data map[K]unique.Handle[V]
 }
@@ -114,27 +114,27 @@ func (c *DeduplicatedCache[K, V]) GetHandle(key K) (unique.Handle[V], bool) {
 	return handle, exists
 }
 
-func demonstrateDeduplicationCache() {
+func main() {
 	cache := NewDeduplicatedCache[int, string]()
 	
-	// Store the same value multiple times
+	// Store the same value multiple times.
 	cache.Set(1, "common value")
 	cache.Set(2, "common value")
 	cache.Set(3, "common value")
 	cache.Set(4, "unique value")
 	
-	// Get handles to compare
+	// Get handles to compare.
 	h1, _ := cache.GetHandle(1)
 	h2, _ := cache.GetHandle(2)
 	h3, _ := cache.GetHandle(3)
 	h4, _ := cache.GetHandle(4)
 	
-	// Same values share the same interned instance
+	// Same values share the same interned instance.
 	fmt.Printf("h1 == h2: %t (same interned value)\n", h1 == h2)
 	fmt.Printf("h2 == h3: %t (same interned value)\n", h2 == h3)
 	fmt.Printf("h1 == h4: %t (different value)\n", h1 == h4)
 	
-	// Retrieve values normally
+	// Retrieve values normally.
 	val1, _ := cache.Get(1)
 	fmt.Printf("Retrieved value: %s\n", val1)
 }
@@ -175,8 +175,8 @@ func processLogEntries(rawLogs []map[string]interface{}) []LogEntry {
 	return entries
 }
 
-func demonstrateLogProcessing() {
-	// Simulate log data with repeated level and service values
+func main() {
+	// Simulate log data with repeated level and service values.
 	rawLogs := []map[string]interface{}{
 		{"level": "ERROR", "service": "user-service", "message": "Login failed", "timestamp": int64(1640995200)},
 		{"level": "INFO", "service": "user-service", "message": "User created", "timestamp": int64(1640995201)},
@@ -187,7 +187,7 @@ func demonstrateLogProcessing() {
 	
 	entries := processLogEntries(rawLogs)
 	
-	// Count unique level and service combinations
+	// Count unique level and service combinations.
 	levelCounts := make(map[unique.Handle[string]]int)
 	serviceCounts := make(map[unique.Handle[string]]int)
 	
@@ -199,7 +199,7 @@ func demonstrateLogProcessing() {
 	fmt.Printf("Unique log levels: %d\n", len(levelCounts))
 	fmt.Printf("Unique services: %d\n", len(serviceCounts))
 	
-	// Display counts
+	// Display counts.
 	for level, count := range levelCounts {
 		fmt.Printf("Level %s: %d entries\n", level.Value(), count)
 	}
