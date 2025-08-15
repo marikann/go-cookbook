@@ -1,15 +1,130 @@
 ---
 title: 'Routing HTTP Requests'
-description: 'Learn how to route HTTP requests using the Gorilla Mux library in Go.'
+description: 'Learn how to route HTTP requests using both the enhanced standard library and third-party libraries in Go.'
 date: '2025-03-24'
 category: 'HTTP'
 ---
 
-Routing HTTP requests efficiently is crucial when building web applications. In Go, while you can use the standard `net/http` package, using a third-party library like Gorilla Mux can simplify complex routing scenarios.
+Routing HTTP requests efficiently is crucial when building web applications. Go's standard `net/http` package now includes enhanced routing capabilities with method-specific handlers and path wildcards, while third-party libraries like Gorilla Mux provide additional advanced features.
+
+## Standard Library Routing
+
+The standard `net/http` package now supports method-specific handlers and path wildcards for more powerful routing:
+
+```go
+package main
+
+import (
+	"fmt"
+	"net/http"
+)
+
+func main() {
+	mux := http.NewServeMux()
+	
+	mux.HandleFunc("POST /users", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(w, "Creating a new user")
+	})
+
+
+	// Path wildcards with method specification.
+	mux.HandleFunc("GET /users/{id}", func(w http.ResponseWriter, r *http.Request) {
+		userID := r.PathValue("id")
+		fmt.Fprintf(w, "User ID: %s\n", userID)
+	})
+	
+	
+	// Wildcard segments can capture multiple path elements.
+	mux.HandleFunc("GET /files/{path...}", func(w http.ResponseWriter, r *http.Request) {
+		filePath := r.PathValue("path")
+		fmt.Fprintf(w, "File path: %s\n", filePath)
+	})
+	
+	http.ListenAndServe(":8080", mux)
+}
+```
+
+## Advanced Standard Library Patterns
+
+Use more sophisticated routing patterns with the enhanced standard library:
+
+```go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"net/http"
+	"strconv"
+)
+
+type User struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+}
+
+func main() {
+	mux := http.NewServeMux()
+
+	// RESTful API routes with method-specific handlers.
+	mux.HandleFunc("GET /api/users", listUsers)
+	mux.HandleFunc("POST /api/users", createUser)
+	mux.HandleFunc("GET /api/users/{id}", getUser)
+	mux.HandleFunc("PUT /api/users/{id}", updateUser)
+	mux.HandleFunc("DELETE /api/users/{id}", deleteUser)
+
+	// Nested resource routing.
+	mux.HandleFunc("GET /api/users/{userID}/posts/{postID}", getUserPost)
+
+	// File serving with wildcard.
+	mux.Handle("GET /static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
+
+	http.ListenAndServe(":8080", mux)
+}
+
+func listUsers(w http.ResponseWriter, r *http.Request) {
+	users := []User{{1, "Alice"}, {2, "Bob"}}
+	json.NewEncoder(w).Encode(users)
+}
+
+func createUser(w http.ResponseWriter, r *http.Request) {
+	var user User
+	json.NewDecoder(r.Body).Decode(&user)
+	user.ID = 3 // Simulate ID assignment
+	json.NewEncoder(w).Encode(user)
+}
+
+func getUser(w http.ResponseWriter, r *http.Request) {
+	idStr := r.PathValue("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		http.Error(w, "Invalid user ID", http.StatusBadRequest)
+		return
+	}
+	user := User{ID: id, Name: "Example User"}
+	json.NewEncoder(w).Encode(user)
+}
+
+func updateUser(w http.ResponseWriter, r *http.Request) {
+	idStr := r.PathValue("id")
+	fmt.Fprintf(w, "Updating user %s\n", idStr)
+}
+
+func deleteUser(w http.ResponseWriter, r *http.Request) {
+	idStr := r.PathValue("id")
+	fmt.Fprintf(w, "Deleting user %s\n", idStr)
+}
+
+func getUserPost(w http.ResponseWriter, r *http.Request) {
+	userID := r.PathValue("userID")
+	postID := r.PathValue("postID")
+	fmt.Fprintf(w, "User %s, Post %s\n", userID, postID)
+}
+```
 
 ## Basic Routing with Gorilla Mux
 
-Gorilla Mux is a popular routing library in Go for its flexibility and features like URL parameters and subrouters.
+For more advanced routing features, Gorilla Mux remains a popular choice:
 
 ```go
 package main
@@ -126,6 +241,9 @@ func main() {
 
 ## Best Practices
 
+- Prefer the enhanced standard library routing for most use cases; it's now powerful enough for many applications.
+- Use method-specific handlers (`GET /path`, `POST /path`) for cleaner, more explicit routing.
+- Leverage path wildcards (`{id}`) and catch-all patterns (`{path...}`) for flexible routing.
 - Employ middleware for logging, authentication, and other cross-cutting concerns.
 - Use URL parameters wisely to keep endpoints clean and intuitive.
 - Organize routes using subrouters to separate different parts of your API.
