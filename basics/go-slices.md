@@ -106,9 +106,54 @@ func main() {
 - Forgetting that modifying a slice might affect all slices pointing to the same array.
 - Using an uninitialized slice (`nil` slice) without checking as it doesn't automatically allocate storage.
 
+## Slice Utility Functions
+
+The `slices` package provides many utility functions for common slice operations:
+
+```go
+package main
+
+import (
+	"fmt"
+	"slices"
+)
+
+func main() {
+	numbers := []int{3, 1, 4, 1, 5, 9, 2, 6}
+
+	// Find elements
+	fmt.Printf("Contains 5: %t\n", slices.Contains(numbers, 5))
+	fmt.Printf("Index of 4: %d\n", slices.Index(numbers, 4))
+
+	// Sorting and binary search
+	sortedNumbers := slices.Clone(numbers)
+	slices.Sort(sortedNumbers)
+	fmt.Printf("Sorted: %v\n", sortedNumbers)
+	binarySearchRes, _ := slices.BinarySearch(sortedNumbers, 5)
+	fmt.Printf("Binary search for 5: %d\n", binarySearchRes)
+
+	// Insert and delete
+	inserted := slices.Insert(numbers, 2, 99, 100)
+	fmt.Printf("After insert: %v\n", inserted)
+
+	deleted := slices.Delete(numbers, 1, 3)
+	fmt.Printf("After delete: %v\n", deleted)
+
+	// Comparison and equality
+	other := []int{3, 1, 4, 1, 5, 9, 2, 6}
+	fmt.Printf("Equal to other: %t\n", slices.Equal(numbers, other))
+
+	// Reverse
+	reversed := slices.Clone(numbers)
+	slices.Reverse(reversed)
+	fmt.Printf("Reversed: %v\n", reversed)
+}
+```
+
 ## Performance Tips
 
 - Pre-allocate slices using `make` function to avoid multiple allocations.
 - Be mindful of large memory allocations during `append` operations; use `cap()` to optimize capacity size.
 - Avoid using large slices passed by value, as it involves copying each element, which can be costly.
 - Use slicing operations carefully to avoid inadvertent high-memory usage by sharing a large backing array.
+- Use `slices` package utilities for common operations like sorting, searching, and manipulation for better performance and correctness.
