@@ -74,10 +74,14 @@ func main() {
 }
 ```
 
+## Modern Random Number Generation with math/rand/v2
+
+As of Go 1.22, `math/rand/v2` provides significant improvements over the original `math/rand` package, including better pseudo-random number generation algorithms, automatic seeding that eliminates the need for manual seeding, and enhanced concurrency support with per-goroutine generators for better performance in multi-threaded applications.
+
 ## Best Practices
 
 - **Cryptographic random numbers:** Always use `crypto/rand` for cryptographic needs such as generating keys, nonces, or tokens.
-- **Seeding:** Seed `math/rand` using the current time or a unique value for different sequences in different runs.
+- **Seeding:** Seed `math/rand` using the current time or a unique value for different sequences in different runs. Note that `math/rand/v2` provides automatic seeding and improved algorithms.
 - **Error Handling:** Handle errors appropriately in cryptographic operations; do not ignore them.
 
 ## Common Pitfalls
@@ -88,6 +92,6 @@ func main() {
 
 ## Performance Tips
 
-- **Efficiency:** Use `math/rand` when cryptographic security is not needed for better performance as it is less computationally intensive.
+- **Efficiency:** Use `math/rand` or `math/rand/v2` when cryptographic security is not needed for better performance as they are less computationally intensive.
 - **Buffering:** If you need many random numbers at once, consider generating them in a batch and storing them in a buffer for repeated access.
-- **Concurrency:** Leverage concurrency when generating random numbers in large-scale applications to optimize performance.
+- **Concurrency:** Leverage concurrency when generating random numbers in large-scale applications to optimize performance. `math/rand/v2` provides better concurrency support.
