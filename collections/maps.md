@@ -103,3 +103,7 @@ func main() {
 - If you're encountering high contention on map operations, consider using a sync.Map from the `sync` package for concurrent access.
 - Profile performance when using maps with large datasets to identify potential bottlenecks.
 - Pre-allocate maps with a capacity using `make(map[type]type, capacity)` if the number of entries is known, to lower memory overhead.
+
+## Notes
+
+- Go's map implementation uses a "Swiss table" design for improved performance with better cache locality and reduced memory overhead in hash table operations.
