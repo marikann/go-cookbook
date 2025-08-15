@@ -75,7 +75,9 @@ import (
 )
 
 func main() {
-	conn, err := net.Dial("tcp", "localhost:8080")
+	// Use net.JoinHostPort for IPv6 safety.
+	address := net.JoinHostPort("localhost", "8080")
+	conn, err := net.Dial("tcp", address)
 	if err != nil {
 		panic(err)
 	}
@@ -108,6 +110,7 @@ func main() {
 - Handle connections concurrently using goroutines in the server for scalability.
 - Implement proper error handling to handle network failures gracefully.
 - Use timeouts (`SetDeadline`) for connections to avoid hanging on I/O operations.
+- Always use `net.JoinHostPort` when constructing addresses to ensure IPv6 compatibility.
 
 ## Common Pitfalls
 
