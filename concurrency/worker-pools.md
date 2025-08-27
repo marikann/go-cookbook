@@ -90,9 +90,9 @@ func main() {
 	var wg sync.WaitGroup
 
 	// Start workers.
-       for w := 0; w < numWorkers; w++ {
-	       wg.Go(func() { worker(w, jobs, results) })
-       }
+	for w := 0; w < numWorkers; w++ {
+		wg.Go(func() { worker(w, jobs, results) })
+	}
 
 	// Send jobs to the workers.
 	for j := 0; j < numJobs; j++ {
